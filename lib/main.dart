@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'LoginPage.dart';
+import 'SignupPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'HelpDesk',
      debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: SignupPage(),
     );
   }
 }
