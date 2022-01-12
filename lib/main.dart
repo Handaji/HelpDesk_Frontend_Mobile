@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'LoginPage.dart';
 import 'SignupPage.dart';
 import 'NewProject.dart';
+import 'NewTache.dart';
+import 'NewTicket.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'HelpDesk',
      debugShowCheckedModeBanner: false,
-      home: TopPage(),
+      home: Ticket(),
     );
   }
 }

@@ -106,6 +106,8 @@ class TopPage extends StatelessWidget {
     );
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -167,18 +169,80 @@ class TopPage extends StatelessWidget {
               ],
             ),
             child: Column(children: <Widget>[
-              Text(
-                '\n',
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Name of Project')
               ),
-              buildNom(),
-              Text(
-                '\n',
+              TextFormField(
+                  decoration: const InputDecoration(labelText: 'Project Libelle')
               ),
-              buildLibelle(),
-              Text(
-                '\n',
+              DecoratedBox(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [
+                            Colors.white,
+                            Colors.white,
+                            Colors.white
+                            //add more colors
+                          ]),
+                      borderRadius: BorderRadius.circular(5),
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                            color: Color.fromRGBO(0, 0, 0, 0.57), //shadow for button
+                            blurRadius: 2) //blur radius of shadow
+                      ]
+                  ),
+                  child:Padding(
+                    padding: EdgeInsets.only(left:30, right:30),
+                    child:DropdownButton(
+                        value: "Select Status",
+                        items: [ //add items in the dropdown
+                          DropdownMenuItem(
+                            child: Text("Select Status"),
+                            value: "Select Status",
+                          ),
+                          DropdownMenuItem(
+                            child: Text("Done"),
+                            value: "done",
+                          ),
+                          DropdownMenuItem(
+                              child: Text("Doing"),
+                              value: "doing"
+                          ),
+                          DropdownMenuItem(
+                            child: Text("To Do"),
+                            value: "todo",
+                          )
+                        ],
+                        onChanged: (value){
+
+                        },
+                        isExpanded: true, //make true to take width of parent widget
+                        underline: Container(), //empty line
+                        style: TextStyle(fontSize: 18, color: Colors.black),
+                        dropdownColor: Colors.white,
+                        iconEnabledColor: Colors.black, //Icon color
+                      )
+                  )
               ),
-              buildDescription(),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Description'),
+                maxLines: null,
+                keyboardType: TextInputType.multiline,
+
+              ),
+
+              OutlineButton(
+                shape: StadiumBorder(),
+                highlightedBorderColor: Colors.blueGrey,
+                borderSide: BorderSide(
+                    width: 2,
+                    color: Colors.blueGrey
+                ),
+                onPressed: () { },
+                child: Text('Add Project'),
+              )
+
+
             ]),
           ),
         ],
