@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:date_time_picker/date_time_picker.dart';
 
 class Ticket extends StatelessWidget {
   Widget buildNom() {
@@ -226,7 +224,7 @@ class Ticket extends StatelessWidget {
                 keyboardType: TextInputType.multiline,
                 maxLines: 2,
               ),
-              DateTimePicker(
+              /*DateTimePicker(
                 type: DateTimePickerType.dateTimeSeparate,
                 dateMask: 'd MMM, yyyy',
                 initialValue: DateTime.now().toString(),
@@ -249,7 +247,7 @@ class Ticket extends StatelessWidget {
                   return null;
                 },
                 onSaved: (val) => print(val),
-              ),
+              ),*/
               OutlineButton(
                 shape: StadiumBorder(),
                 highlightedBorderColor: Colors.blueGrey,
