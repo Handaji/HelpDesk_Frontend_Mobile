@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:helpdesk_mobile/screens/ListProject.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -121,7 +122,11 @@ class _LoginPageState extends State<LoginPage> {
       width: double.infinity,
       child: RaisedButton(
         elevation: 5,
-        onPressed: () => print("Login Pressed"),
+        onPressed: () {Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ProjectList()),
+        );
+        },
         padding: EdgeInsets.all(15),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         color: Colors.white,

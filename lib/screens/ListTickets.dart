@@ -1,92 +1,78 @@
 import 'package:flutter/material.dart';
-import 'package:helpdesk_mobile/NewProject.dart';
+import 'package:helpdesk_mobile/NewTache.dart';
+import 'package:helpdesk_mobile/NewTicket.dart';
 import 'package:helpdesk_mobile/entity/Project.dart';
-import 'package:helpdesk_mobile/screens/ProjectDetail.dart';
 
-class ProjectList extends StatefulWidget {
+class TicketDetail extends StatefulWidget {
+  final Project project;
+  TicketDetail(this.project);
   @override
-  State<StatefulWidget> createState() => ProjectListState();
+  State<StatefulWidget> createState() => TicketDetailState(project);
 }
 
-class ProjectListState extends State {
-  int count = 1;
-  List<Project> projects;
-
+class TicketDetailState extends State {
+  Project project;
+  TicketDetailState(this.project);
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    if (projects == null) {
-      getData();
-    }
+    titleController.text = "Ticket Title";
+    descriptionController.text = "Ticket Description";
+    //TextStyle textStyle = Theme.of(context).textTheme.headline6;
     return Scaffold(
-      body: projectListItems(),
+
+
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.redAccent,
         onPressed: () {
 
           Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => TopPage()));
+              context,
+              MaterialPageRoute(builder: (context) => NTache()));
         },
 
-        tooltip: "Add New project",
+        tooltip: "Add New Tache",
         child: new Icon(Icons.add),
       ),
+
+      appBar: new AppBar(
+        centerTitle: true,
+        title: new Text("Ticket Information"),
+        backgroundColor: Colors.redAccent,
+      ),
+      body: //TaskListItems(),
+      Padding(
+          padding: EdgeInsets.only(top: 35.0, left: 10.0, right: 10.0),
+          child: ListView(
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  TextField(
+                    controller: titleController,
+                    decoration: InputDecoration(
+                      labelText: "Title",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                    child: TextField(
+                      controller: descriptionController,
+                      decoration: InputDecoration(
+                        labelText: "Description",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0)),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          )),
+
+
     );
-  }
-
-  ListView projectListItems() {
-    return ListView.builder(
-      itemCount: count,
-      itemBuilder: (BuildContext context, int position) {
-        return Card(
-          color: Colors.white,
-          elevation: 3.0,
-          child: ListTile(
-            leading: CircleAvatar(
-              backgroundColor: getColor(1), //getColor status 1 - 2 - 3
-              child: Text("P1"), //status
-            ),
-            title: Text("titre du projet 1"),
-            subtitle: Text("2022-01-12"),
-            onTap: () {
-              navigateToProjectTask(Project('', '', 0, ''));
-              debugPrint("Tapped On");
-            },
-          ),
-        );
-      },
-    );
-  }
-
-  Color getColor(int status) {
-    switch (status) {
-      case 1:
-        return Colors.red;
-        break;
-      case 2:
-        return Colors.orange;
-        break;
-      case 2:
-        return Colors.green;
-        break;
-      default:
-        return Colors.green;
-    }
-  }
-
-  void navigateToProjectTask(Project project) async {
-    bool result = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ProjectDetail(project)),
-    );
-    if (result == true) {
-      getData();
-    }
-
-  }
-
-  void getData() {
-    /*List<Project>projectList;
-        projectList.add(Project('Project1', '2022-01-12', 3, 'this is the 1st project '));*/
   }
 }

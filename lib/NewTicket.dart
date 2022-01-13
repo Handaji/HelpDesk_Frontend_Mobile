@@ -1,113 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:date_time_picker/date_time_picker.dart';
+import 'package:helpdesk_mobile/LoginPage.dart';
+import 'package:helpdesk_mobile/screens/ListTickets.dart';
+import 'package:helpdesk_mobile/screens/ProjectDetail.dart';
 
-class Ticket extends StatelessWidget {
-  Widget buildNom() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'Ticket Name',
-          style: TextStyle(
-              color: Colors.black87, fontSize: 12, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 10),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(25),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black26, blurRadius: 4, offset: Offset(0, 2))
-              ]),
-          height: 50,
-          child: TextField(
-            keyboardType: TextInputType.name,
-            style: TextStyle(
-              color: Colors.black87,
-            ),
-            decoration: InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.only(top: 20),
-                hintStyle: TextStyle(color: Colors.black38)),
-          ),
-        )
-      ],
-    );
-  }
+class NTicket extends StatefulWidget {
+  @override
+  NTicketState createState() => NTicketState();
+}
 
-  Widget buildLibelle() {
-    return Column(
-      children: <Widget>[
-        Text(
-          'Ticket Libelle',
-          style: TextStyle(
-              color: Colors.black87, fontSize: 12, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 10),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(25),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black26, blurRadius: 4, offset: Offset(0, 2))
-              ]),
-          height: 50,
-          child: TextField(
-            keyboardType: TextInputType.name,
-            style: TextStyle(
-              color: Colors.black87,
-            ),
-            decoration: InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.only(top: 20),
-                hintStyle: TextStyle(color: Colors.black38)),
-          ),
-        )
-      ],
-    );
-  }
-
-  Widget buildDescription() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          '     Ticket Description',
-          style: TextStyle(
-              color: Colors.black87, fontSize: 12, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 10),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(25),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black26, blurRadius: 4, offset: Offset(0, 2))
-              ]),
-          height: 100,
-          child: TextField(
-            keyboardType: TextInputType.text,
-            style: TextStyle(
-              color: Colors.black87,
-            ),
-            decoration: InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.only(top: 20),
-                hintStyle: TextStyle(color: Colors.black38)),
-          ),
-        )
-      ],
-    );
-  }
-
+class NTicketState extends State<NTicket> {
   @override
   Widget build(BuildContext context) {
+    var currentSelectedValue;
+    const deviceTypes = ["Done", "To Do", "Doing"];
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
           "Home",
@@ -132,8 +42,6 @@ class Ticket extends StatelessWidget {
                   spreadRadius: 3, //spread radius
                   blurRadius: 5, // blur radius
                   offset: Offset(0, 2), // changes position of shadow
-                  //first paramerter of offset is left-right
-                  //second parameter is top to down
                 ),
                 //you can set more BoxShadow() here
               ],
@@ -166,75 +74,67 @@ class Ticket extends StatelessWidget {
               ],
             ),
             child: Column(children: <Widget>[
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Name of Ticket'),
-                maxLines: null,
+              Text(
+                '\n',
               ),
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Ticket Libelle'),
-                maxLines: null,
+                  decoration:
+                  const InputDecoration(labelText: '    Name of Ticket')),
+              Text(
+                '\n',
               ),
-              DecoratedBox(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: [
-                        Colors.white,
-                        Colors.white,
-                        Colors.white
-                        //add more colors
-                      ]),
-                      borderRadius: BorderRadius.circular(5),
-                      boxShadow: <BoxShadow>[
-                        BoxShadow(
-                            color: Color.fromRGBO(0, 0, 0, 0.57),
-                            //shadow for button
-                            blurRadius: 2) //blur radius of shadow
-                      ]),
-                  child: Padding(
-                      padding: EdgeInsets.only(left: 30, right: 30),
-                      child: DropdownButton(
-                        value: "Select Status",
-                        items: [
-                          //add items in the dropdown
-                          DropdownMenuItem(
-                            child: Text("Select Status"),
-                            value: "Select Status",
-                          ),
-                          DropdownMenuItem(
-                            child: Text("Done"),
-                            value: "done",
-                          ),
-                          DropdownMenuItem(
-                              child: Text("Doing"), value: "doing"),
-                          DropdownMenuItem(
-                            child: Text("To Do"),
-                            value: "todo",
-                          )
-                        ],
-                        onChanged: (value) {},
-                        isExpanded: true,
-                        //make true to take width of parent widget
-                        underline: Container(),
-                        //empty line
-                        style: TextStyle(fontSize: 18, color: Colors.black),
-                        dropdownColor: Colors.white,
-                        iconEnabledColor: Colors.black, //Icon color
-                      ))),
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Description'),
+                  decoration:
+                  const InputDecoration(labelText: '    Attribution')),
+              Text(
+                '\n',
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: '    Description'),
+                maxLines: null,
                 keyboardType: TextInputType.multiline,
-                maxLines: 2,
               ),
-              /*DateTimePicker(
+              FormField<String>(builder: (FormFieldState<String> state) {
+                return InputDecorator(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0))),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 5, right: 5),
+                    child: DropdownButton<String>(
+                      hint: Text("Select Status of the ticket"),
+                      value: currentSelectedValue,
+                      isDense: true,
+                      onChanged: (newValue) {
+                        setState(() {
+                          currentSelectedValue = newValue;
+                        });
+                        print(currentSelectedValue);
+                      },
+                      items: deviceTypes.map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                );
+              }),
+              Text(
+                '\n',
+              ),
+              DateTimePicker(
                 type: DateTimePickerType.dateTimeSeparate,
                 dateMask: 'd MMM, yyyy',
                 initialValue: DateTime.now().toString(),
                 firstDate: DateTime(2000),
                 lastDate: DateTime(2100),
                 icon: Icon(Icons.event),
-                dateLabelText: 'Date',
+                dateLabelText: 'Starting Date',
                 timeLabelText: "Hour",
                 selectableDayPredicate: (date) {
-                  // Disable weekend days to select from the calendar
+// Disable weekend days to select from the calendar
                   if (date.weekday == 6 || date.weekday == 7) {
                     return false;
                   }
@@ -247,15 +147,22 @@ class Ticket extends StatelessWidget {
                   return null;
                 },
                 onSaved: (val) => print(val),
-              ),*/
-              OutlineButton(
-                shape: StadiumBorder(),
-                highlightedBorderColor: Colors.blueGrey,
-                borderSide: BorderSide(width: 4, color: Colors.blueGrey),
-                onPressed: () {},
-                child: Text('Add Ticket'),
-              )
+              ),
+
             ]),
+          ),
+          ElevatedButton.icon(
+            onPressed: () {
+
+
+
+              // Respond to button press
+            },
+            icon: Icon(Icons.add, size: 25),
+            label: Text("Add Ticket"),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.black26,
+            ),
           ),
         ],
       ),

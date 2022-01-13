@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:helpdesk_mobile/NewProject.dart';
 import 'package:helpdesk_mobile/entity/Project.dart';
 import 'package:helpdesk_mobile/screens/ProjectDetail.dart';
 
@@ -21,8 +22,12 @@ class ProjectListState extends State {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.redAccent,
         onPressed: () {
-          navigateToProjectTask(Project('', '', 0, ''));
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => TopPage()));
         },
+
         tooltip: "Add New project",
         child: new Icon(Icons.add),
       ),
@@ -44,6 +49,7 @@ class ProjectListState extends State {
             title: Text("titre du projet 1"),
             subtitle: Text("2022-01-12"),
             onTap: () {
+              navigateToProjectTask(Project('', '', 0, ''));
               debugPrint("Tapped On");
             },
           ),
@@ -76,6 +82,7 @@ class ProjectListState extends State {
     if (result == true) {
       getData();
     }
+
   }
 
   void getData() {
