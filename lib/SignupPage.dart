@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:helpdesk_mobile/LoginPage.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -170,7 +171,14 @@ class _SignupPageState extends State<SignupPage> {
       width: double.infinity,
       child: RaisedButton(
         elevation: 5,
-        onPressed: () => print("Register Pressed"),
+        onPressed: (
+
+            ){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => LoginPage()),
+          );
+        },
         padding: EdgeInsets.all(15),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         color: Colors.white,

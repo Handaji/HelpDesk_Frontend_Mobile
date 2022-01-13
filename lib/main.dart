@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'HelpDesk',
      debugShowCheckedModeBanner: false,
-      home: Ticket(),
+      home: TopPage(),
     );
   }
 }

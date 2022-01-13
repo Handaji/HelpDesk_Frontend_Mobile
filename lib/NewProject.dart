@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class TopPage extends StatelessWidget {
+class TopPage extends StatefulWidget {
+  @override
+  TopPageState createState() => TopPageState();
+}
+
+class TopPageState extends State<TopPage> {
   Widget buildNom() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,11 +111,13 @@ class TopPage extends StatelessWidget {
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
+    var currentSelectedValue;
+    const deviceTypes = ["Done","Pending", "Doing", "canceled"];
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
           "Home",
@@ -135,8 +142,6 @@ class TopPage extends StatelessWidget {
                   spreadRadius: 3, //spread radius
                   blurRadius: 5, // blur radius
                   offset: Offset(0, 2), // changes position of shadow
-                  //first paramerter of offset is left-right
-                  //second parameter is top to down
                 ),
                 //you can set more BoxShadow() here
               ],
@@ -169,81 +174,70 @@ class TopPage extends StatelessWidget {
               ],
             ),
             child: Column(children: <Widget>[
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Name of Project')
+              Text(
+                '\n',
               ),
               TextFormField(
-                  decoration: const InputDecoration(labelText: 'Project Libelle')
+                  decoration:
+                      const InputDecoration(labelText: '    Name of Project')),
+              Text(
+                '\n',
               ),
-              DecoratedBox(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [
-                            Colors.white,
-                            Colors.white,
-                            Colors.white
-                            //add more colors
-                          ]),
-                      borderRadius: BorderRadius.circular(5),
-                      boxShadow: <BoxShadow>[
-                        BoxShadow(
-                            color: Color.fromRGBO(0, 0, 0, 0.57), //shadow for button
-                            blurRadius: 2) //blur radius of shadow
-                      ]
+              TextFormField(
+                  decoration:
+                      const InputDecoration(labelText: '    Project Libelle')),
+              Text(
+                '\n',
+              ),
+              FormField<String>(builder: (FormFieldState<String> state) {
+                return InputDecorator(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0))),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 5, right: 5),
+                    child: DropdownButton<String>(
+                      hint: Text("Select Status of the project"),
+                      value: currentSelectedValue,
+                      isDense: true,
+                      onChanged: (newValue) {
+                        setState(() {
+                          currentSelectedValue = newValue;
+                        });
+                        print(currentSelectedValue);
+                      },
+                      items: deviceTypes.map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
                   ),
-                  child:Padding(
-                    padding: EdgeInsets.only(left:30, right:30),
-                    child:DropdownButton(
-                        value: "Select Status",
-                        items: [ //add items in the dropdown
-                          DropdownMenuItem(
-                            child: Text("Select Status"),
-                            value: "Select Status",
-                          ),
-                          DropdownMenuItem(
-                            child: Text("Done"),
-                            value: "done",
-                          ),
-                          DropdownMenuItem(
-                              child: Text("Doing"),
-                              value: "doing"
-                          ),
-                          DropdownMenuItem(
-                            child: Text("To Do"),
-                            value: "todo",
-                          )
-                        ],
-                        onChanged: (value){
-
-                        },
-                        isExpanded: true, //make true to take width of parent widget
-                        underline: Container(), //empty line
-                        style: TextStyle(fontSize: 18, color: Colors.black),
-                        dropdownColor: Colors.white,
-                        iconEnabledColor: Colors.black, //Icon color
-                      )
-                  )
+                );
+              }),
+              Text(
+                '\n',
               ),
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Description'),
-                maxLines: null,
+                decoration: const InputDecoration(labelText: '    Description'),
+                maxLines: 3,
                 keyboardType: TextInputType.multiline,
-
               ),
-
-              OutlineButton(
-                shape: StadiumBorder(),
-                highlightedBorderColor: Colors.blueGrey,
-                borderSide: BorderSide(
-                    width: 2,
-                    color: Colors.blueGrey
-                ),
-                onPressed: () { },
-                child: Text('Add Project'),
-              )
-
-
+              Text(
+                '\n',
+              ),
             ]),
+          ),
+          ElevatedButton.icon(
+            onPressed: () {
+              // Respond to button press
+            },
+            icon: Icon(Icons.add, size: 25),
+            label: Text("Add Project"),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.black26,
+            ),
           ),
         ],
       ),
