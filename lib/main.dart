@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:helpdesk_mobile/screens/ListProject.dart';
-import 'LoginPage.dart';
-import 'SignupPage.dart';
-import 'NewProject.dart';
-import 'NewTache.dart';
-import 'NewTicket.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +11,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'HelpDesk',
-<<<<<<< HEAD
       debugShowCheckedModeBanner: false,
       home: HomePage(),
     );
@@ -38,10 +32,6 @@ class HomePageState extends State<HomePage> {
         backgroundColor: Colors.redAccent,
       ),
       body: ProjectList(),
-=======
-     debugShowCheckedModeBanner: false,
-      home: TopPage(),
->>>>>>> 43200a08b1e30e07145e8dbfd3fcf397eff483c0
     );
   }
 }
